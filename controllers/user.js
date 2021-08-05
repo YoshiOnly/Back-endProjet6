@@ -35,7 +35,7 @@ exports.signup = (req, res, next) => {
         })); // Si il existe déjà un utilisateur avec cette adresse email
     })
     .catch(error => res.status(500).json({
-      error:"test"
+      error
       
     }));
 

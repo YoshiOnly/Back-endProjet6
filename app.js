@@ -1,29 +1,42 @@
-const express = require('express');
+/**
+ * déclaration des packages
+ */
 
+// express (type d'app)
+const express = require('express');
 const app = express();
 
+//bodyParser ( pour parse le json)
 const bodyParser = require('body-parser');
 
+//path (pour faire des routes)
 const path = require('path');
 
+//helmet (pour les header) /!\ SECURITE
 const helmet = require('helmet');
 
-
+//cookie-session ( pour les cookies) et no cache pour le cache /!\ SECURITE
 const session = require('cookie-session');
 const nocache = require('nocache');
 
+//mongoose ( pour la database)
+const mongoose = require('mongoose');
 
-// On importe mongoose pour pouvoir utiliser la base de données
-const mongoose = require('mongoose'); // Plugin Mongoose pour se connecter à la data base Mongo Db
 
+/**
+ * Declaration des routes
+ */
 
-// Déclaration des routes
-// On importe la route dédiée aux sauces
+// sauces
 const saucesRoutes = require('./routes/sauces');
-// On importe la route dédiée aux utilisateurs
+// user
 const userRoutes = require('./routes/user');
 
-// utilisation du module 'dotenv' pour masquer les informations de connexion à la base de données à l'aide de variables d'environnement
+/**
+ * Mise en place
+ */
+
+// utilisation du module 'dotenv' pour masquer les informations de connexion à la base de données à l'aide de variables d'environnement /!\ SECURITE
 require('dotenv').config();
 
 
@@ -37,14 +50,20 @@ mongoose.connect('mongodb+srv://Yoshi:AuBgBfsjFFU7NKM@piquant.jeur5.mongodb.net/
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 
+
+
+/**
+ * Lancement de l'app
+ */
+
 //app.use((req, res) => {
 //    res.json({ message: 'Votre requête a bien été reçue !' }); 
 // });
 
  // Middleware Header pour contourner les erreurs en débloquant certains systèmes de sécurité CORS, afin que tout le monde puisse faire des requetes depuis son navigateur
 app.use((req, res, next) => {
-    // on indique que les ressources peuvent être partagées depuis n'importe quelle origine
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // on indique que les ressources peuvent être partagées depuis n'importe quelle origine /?\ SECURITE
+    res.setHeader('Access-Control-Allow-Origin', '*'); 
     // on indique les entêtes qui seront utilisées après la pré-vérification cross-origin afin de donner l'autorisation
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
     // on indique les méthodes autorisées pour les requêtes HTTP
@@ -54,10 +73,12 @@ app.use((req, res, next) => {
     next();
   });
 
+/**
+ * Middleware
+ */
 
-
-  // Options pour sécuriser les cookies
-  const expiryDate = new Date(Date.now() + 3600000); // 1 heure (60 * 60 * 1000)
+// Options pour sécuriser les cookies
+const expiryDate = new Date(Date.now() + 3600000); // 1 heure (60 * 60 * 1000)
 
 app.use(session({
   name: 'session',
@@ -70,10 +91,11 @@ app.use(session({
   }
 }));
 
+
  // Middleware qui permet de parser les requêtes envoyées par le client, on peut y accéder grâce à req.body
- app.use(bodyParser.urlencoded({
-    extended: true
-  }));
+
+ app.use(express.urlencoded({ extended: true }));
+ app.use(express.json());
 
   
 // Sécuriser Express en définissant divers en-têtes HTTP - https://www.npmjs.com/package/helmet#how-it-works
@@ -98,4 +120,8 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
  app.use('/api/sauces', saucesRoutes);
  app.use('/api/auth', userRoutes);
  
+
+ /**
+ * Export
+ */
  module.exports = app;
