@@ -1,12 +1,13 @@
 /**
- * déclaration des packages
+ * Application
  */
 
+// Declaration des packages:
 // express (type d'app)
 const express = require('express');
 const app = express();
 
-//bodyParser ( pour parse le json)
+//bodyParser ( pour parse le json) useless
 const bodyParser = require('body-parser');
 
 //path (pour faire des routes)
@@ -40,9 +41,7 @@ const userRoutes = require('./routes/user');
 require('dotenv').config();
 
 
-// Connection à la base de données MongoDB avec la sécurité vers le fichier .env pour cacher le mot de passe
-// L'un des avantages que nous avons à utiliser Mongoose pour gérer notre base de données MongoDB est que nous pouvons implémenter des schémas de données stricts
-// qui permettent de rendre notre application plus robuste
+// Connection à la base de données MongoDB 
 mongoose.connect('mongodb+srv://Yoshi:AuBgBfsjFFU7NKM@piquant.jeur5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
@@ -92,7 +91,7 @@ app.use(session({
 }));
 
 
- // Middleware qui permet de parser les requêtes envoyées par le client, on peut y accéder grâce à req.body
+ // Middleware qui permet de parser les requêtes envoyées par le client ( utilisation de express rendant body-parsser inutile)
 
  app.use(express.urlencoded({ extended: true }));
  app.use(express.json());

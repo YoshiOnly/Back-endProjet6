@@ -1,4 +1,8 @@
+/**
+ * Middleware validation du mot de passe
+ */
 
+// model
 const passwordSchema = require('../models/password');
 
 

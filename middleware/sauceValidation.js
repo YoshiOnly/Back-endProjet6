@@ -1,3 +1,7 @@
+/**
+ * Middleware validation des sauces
+ */
+
 
 const validate = require('mongoose-validator'); // Appel du plugin mongoose-validator
 

@@ -1,3 +1,8 @@
+/**
+ * modele du mot de passe
+ */
+
+// plugin password-validator
 const passwordValidator = require('password-validator');
 
 // Schéma de mot de passe plus sécure

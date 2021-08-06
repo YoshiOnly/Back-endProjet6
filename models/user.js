@@ -1,3 +1,6 @@
+/**
+ * modele user
+ */
 
 // Création d'un model user avec mongoose, on importe donc mongoose
 const mongoose = require('mongoose');
@@ -5,11 +8,9 @@ require('mongoose-type-email');
 
 // On rajoute ce validateur comme plugin
 const uniqueValidator = require('mongoose-unique-validator'); // package qui valide l'unicité de l'email
-const sanitizerPlugin = require('mongoose-sanitizer-plugin');
+const sanitizerPlugin = require('mongoose-sanitizer-plugin');  // It cleanses the original data to prevent it from exploiting any security holes in your application.
 
-// la valeur unique , avec l'élément mongoose-unique-validator passé comme plug-in,
-// s'assurera que deux utilisateurs ne peuvent partager la même adresse e-mail.
-// Utilisation d'une expression régulière pour valider le format d'email.
+
 // Le mot de passe fera l'objet d'une validation particulière grâce au middleware verifPasword et au model password
 
 // On crée notre schéma de données dédié à l'utilisateur

@@ -1,17 +1,17 @@
-
-// On prend toute la logique métier pour la déporter dans le fichier sauce.js de controllers
-// On ne garde que la logique de routing dans le fichier sauce.js du router. On importe aussi le model Sauce
-// On a ajouté le controller sauce avec une constante sauceCtrl dans le fichier sauce.js du router
-
-// Récupération du modèle créé grâce à la fonction schéma de mongoose
+/**
+ * Controller sauce // Logique métier 
+ */
 
 // Récupération du modèle 'sauce'
 const Sauce = require('../models/sauce');
 // Récupération du module 'file system' de Node permettant de gérer ici les téléchargements et modifications d'images
 const fs = require('fs');
 
-// Permet de créer une nouvelle sauce
+/**
+ * Methodes
+ */
 
+// Permet de créer une nouvelle sauce
 exports.createSauce = (req, res, next) => {
   // On stocke les données envoyées par le front-end sous forme de form-data dans une variable en les transformant en objet js
   const sauceObject = JSON.parse(req.body.sauce);

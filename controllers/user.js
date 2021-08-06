@@ -1,14 +1,20 @@
 
-// On retrouve ici la logique métier en lien avec nos utilisateurs, appliqué aux routes POST pour les opérations d'inscription et de connexion
+/**
+ * Controller user
+ */
 
-// On utilise l'algorithme bcrypt pour hasher le mot de passe des utilisateurs
+// On utilise l'algorithme bcrypt pour hasher le mot de passe des utilisateurs /!\ sécurité
 const bcrypt = require('bcrypt')
 
-// On récupère notre model User ,créer avec le schéma mongoose
+// model
 const User = require('../models/user');
 
-// On utilise le package jsonwebtoken pour attribuer un token à un utilisateur au moment ou il se connecte
+// On utilise le package jsonwebtoken pour attribuer un token à un utilisateur au moment ou il se connecte /!\ sécurité
 const jwt = require('jsonwebtoken');
+
+/**
+ * Methodes
+ */
 
 // Middleware pour crée un nouvel utilisateur
 
@@ -35,6 +41,7 @@ exports.signup = (req, res, next) => {
         })); // Si il existe déjà un utilisateur avec cette adresse email
     })
     .catch(error => res.status(500).json({
+      
       error
       
     }));

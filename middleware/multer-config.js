@@ -1,4 +1,7 @@
-// On importe multer qui est un package qui permet de gérer les fichiers entrants dans les requêtes HTTP
+/**
+ * Middleware multer ( gestion des images)
+ */
+
 const multer = require('multer');
 
 // On crée un dictionnaire des types MIME pour définire le format des images

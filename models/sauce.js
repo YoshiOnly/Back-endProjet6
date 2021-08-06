@@ -1,3 +1,7 @@
+/**
+ * modele des sauces
+ */
+
 // On importe mongoose
 const mongoose = require('mongoose');
 
