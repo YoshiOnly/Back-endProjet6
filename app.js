@@ -42,7 +42,7 @@ require('dotenv').config();
 
 
 // Connection à la base de données MongoDB 
-mongoose.connect('mongodb+srv://Yoshi:AuBgBfsjFFU7NKM@piquant.jeur5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect(process.env.MAN_CON,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
