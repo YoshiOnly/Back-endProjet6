@@ -7,9 +7,6 @@
 const express = require('express');
 const app = express();
 
-//bodyParser ( pour parse le json) useless
-const bodyParser = require('body-parser');
-
 //path (pour faire des routes)
 const path = require('path');
 
@@ -19,6 +16,13 @@ const helmet = require('helmet');
 //cookie-session ( pour les cookies) et no cache pour le cache /!\ SECURITE
 const session = require('cookie-session');
 const nocache = require('nocache');
+
+//express-rate-limit (pour limiter le nombre de connection (protection DDOS))
+const rateLimit = require("express-rate-limit");
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
 
 //mongoose ( pour la database)
 const mongoose = require('mongoose');
@@ -39,7 +43,6 @@ const userRoutes = require('./routes/user');
 
 // utilisation du module 'dotenv' pour masquer les informations de connexion à la base de données à l'aide de variables d'environnement /!\ SECURITE
 require('dotenv').config();
-
 
 // Connection à la base de données MongoDB 
 mongoose.connect(process.env.MAN_CON,
@@ -104,6 +107,9 @@ app.use(helmet());
 
 //Désactive la mise en cache du navigateur
 app.use(nocache());
+
+//limit le nombre de connections
+app.use(limiter);
 
 
   
